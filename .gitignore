@@ -122,3 +122,6 @@ Thumbs.db
 # JetBrains IDEs
 *.iml
 .idea/
+
+# Class handouts
+ITELECT4_Session2_TypeScript_Advanced_Types.md
