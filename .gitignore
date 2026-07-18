@@ -125,3 +125,6 @@ Thumbs.db
 
 # Class handouts
 ITELECT4_Session2_TypeScript_Advanced_Types.md
+ITELECT4_Session3_React_TypeScript_Components.md
+vite-dev*.log
+dist/

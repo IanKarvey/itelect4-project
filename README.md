@@ -15,22 +15,21 @@ This project is about a simple course enrollment system. It has students, instru
 - `PublicStudent` - uses `Omit` to hide the email
 - `CourseStatusCount` - uses `Record` for counting course statuses
 
-## TypeScript Features Used
+## GT2 Components
 
-- Generic functions: `getFirst<T>()` and `getById<T>()`
-- Generic interface: `ApiResponse<T>`
-- Utility types: `Partial`, `Pick`, `Omit`, `Record`, and `ReturnType`
-- Enum: `CourseStatus`
+- `StudentCard` - shows student info and has typed click/change events
+- `CourseCard` - shows course info using the `Course` type
+- `StatusSummary` - shows course status counts using props and children
 
 ## How to Run
 
 ```bash
 npm install
-npx ts-node src/index.ts
+npm run dev
 ```
 
 ## Check for Errors
 
 ```bash
-npx tsc --noEmit
+npm run build
 ```

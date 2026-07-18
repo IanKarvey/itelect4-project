@@ -1,0 +1,126 @@
+:root {
+  color: #1f2933;
+  background: #f4f7fb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header p,
+.label {
+  color: #5b6b7a;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.section-block {
+  margin-top: 28px;
+}
+
+.section-block h2,
+.summary h2 {
+  margin: 0 0 14px;
+}
+
+.card-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.card,
+.summary {
+  background: white;
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  margin: 0 0 10px;
+}
+
+.card p {
+  margin: 8px 0;
+}
+
+.card-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+button {
+  background: #2563eb;
+  border: 0;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  min-height: 38px;
+  padding: 8px 12px;
+}
+
+input {
+  border: 1px solid #bcccdc;
+  border-radius: 6px;
+  min-height: 38px;
+  padding: 8px 10px;
+}
+
+.summary {
+  margin-top: 28px;
+}
+
+.status-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.status-box {
+  background: #eef4ff;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.status-box span {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.status-box strong {
+  font-size: 1.5rem;
+}
+
+.summary-note {
+  margin: 14px 0 0;
+}

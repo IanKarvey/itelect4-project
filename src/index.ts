@@ -8,7 +8,7 @@ import {
   type Student,
   type StudentPreview,
   type StudentUpdate,
-} from "../types";
+} from "./types";
 
 export function getFirst<T>(items: T[]): T | undefined {
   return items[0];
@@ -172,3 +172,4 @@ export function runApp(): void {
 }
 
 runApp();
+
