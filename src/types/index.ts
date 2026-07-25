@@ -1,5 +1,13 @@
 export type UserRole = "student" | "instructor" | "admin";
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: UserRole;
+  isActive: boolean;
+}
+
 export enum CourseStatus {
   Planned = "planned",
   Open = "open",
@@ -16,11 +24,10 @@ export interface Instructor {
 }
 
 export interface Course {
-  id: number;
+  code: string;
   title: string;
-  credits: number;
-  instructorId: number;
-  status: CourseStatus;
+  units: number;
+  semester: string;
 }
 
 export interface Student {

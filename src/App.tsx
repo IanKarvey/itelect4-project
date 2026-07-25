@@ -1,111 +1,70 @@
+import { useState, useEffect, useRef } from "react";
+import type { User, Course } from "./types/index";
 import CourseCard from "./components/CourseCard";
-import StatusSummary from "./components/StatusSummary";
-import StudentCard from "./components/StudentCard";
-import { CourseStatus, type Course, type CourseStatusCount, type Instructor, type Student } from "./types";
+import useToggle from "./hooks/useToggle";
+import usePrevious from "./hooks/usePrevious";
 
-const instructors: Instructor[] = [
-  {
-    id: 1,
-    name: "Aileen Cruz",
-    email: "aileen.cruz@itelect.edu",
-    department: "Computer Science",
-    role: "instructor",
-  },
-  {
-    id: 2,
-    name: "Bren Tan",
-    email: "bren.tan@itelect.edu",
-    department: "Information Technology",
-    role: "instructor",
-  },
-];
+const student: User = {
+  id: 1,
+  name: "Juan dela Cruz",
+  email: "juan@example.com",
+  role: "student",
+  isActive: true,
+};
 
-const students: Student[] = [
-  {
-    id: 201,
-    name: "Jamie Santos",
-    email: "jamie.santos@student.itelect.edu",
-    enrolledCourseIds: [101, 102],
-    role: "student",
-  },
-  {
-    id: 202,
-    name: "Mika Ramos",
-    email: "mika.ramos@student.itelect.edu",
-    enrolledCourseIds: [101],
-    role: "student",
-  },
-];
-
-const courses: Course[] = [
-  {
-    id: 101,
-    title: "TypeScript Basics",
-    credits: 3,
-    instructorId: 1,
-    status: CourseStatus.Open,
-  },
-  {
-    id: 102,
-    title: "Web Development",
-    credits: 4,
-    instructorId: 2,
-    status: CourseStatus.InProgress,
-  },
-  {
-    id: 103,
-    title: "Network Fundamentals",
-    credits: 3,
-    instructorId: 2,
-    status: CourseStatus.Planned,
-  },
-];
-
-const statusCount: CourseStatusCount = {
-  [CourseStatus.Planned]: 1,
-  [CourseStatus.Open]: 1,
-  [CourseStatus.InProgress]: 1,
-  [CourseStatus.Completed]: 0,
+const course: Course = {
+  code: "ITELECT4",
+  title: "IT Elective 4",
+  units: 3,
+  semester: "1st Semester 2026-2027",
 };
 
 function App() {
-  const handleSelectStudent = (student: Student): void => {
-    console.log("Selected student:", student.name);
-  };
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [showDetails, toggleDetails] = useToggle(false);
+  const previousSearch = usePrevious(searchTerm);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCourses([course]);
+      setIsLoading(false);
+    }, 500);
+  }, []);
+
+  const handleSearchChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => setSearchTerm(e.target.value);
+
+  const filteredCourses = courses.filter((c) =>
+    c.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  if (isLoading) return <p>Loading courses...</p>;
 
   return (
-    <main className="app-shell">
-      <header className="page-header">
-        <p>GT2 Part 1</p>
-        <h1>Course Enrollment Tracker</h1>
-      </header>
-
-      <section className="section-block">
-        <h2>Students</h2>
-        <div className="card-grid">
-          {students.map((student: Student) => (
-            <StudentCard key={student.id} student={student} onSelect={handleSelectStudent} />
-          ))}
-        </div>
-      </section>
-
-      <section className="section-block">
-        <h2>Courses</h2>
-        <div className="card-grid">
-          {courses.map((course: Course) => (
-            <CourseCard
-              key={course.id}
-              course={course}
-              instructor={instructors.find((instructor: Instructor) => instructor.id === course.instructorId)}
-            />
-          ))}
-        </div>
-      </section>
-
-      <StatusSummary title="Course Status Count" counts={statusCount}>
-        <p className="summary-note">This uses the GT1 enum and Record utility type.</p>
-      </StatusSummary>
-    </main>
+    <div className="app">
+      <input
+        ref={searchInputRef}
+        value={searchTerm}
+        type="text"
+        placeholder="Search courses..."
+        onChange={handleSearchChange}
+      />
+      {previousSearch !== undefined && previousSearch !== searchTerm && (
+        <p>Previous search: "{previousSearch}"</p>
+      )}
+      <p>Selected User: {selectedUser ? selectedUser.name : "None"}</p>
+      <button onClick={() => setSelectedUser(student)}>Select User</button>
+      <button onClick={toggleDetails}>{showDetails ? "Hide" : "Show"} Details</button>
+      {showDetails && <p>User Email: {selectedUser ? selectedUser.email : "No user selected"}</p>}
+      {filteredCourses.map((c) => (
+        <CourseCard key={c.code} course={c} />
+      ))}
+    </div>
   );
 }
 
