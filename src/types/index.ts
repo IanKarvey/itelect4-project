@@ -24,10 +24,14 @@ export interface Instructor {
 }
 
 export interface Course {
+  id: number;
   code: string;
   title: string;
-  units: number;
-  semester: string;
+  units?: number;
+  credits: number;
+  semester?: string;
+  status: CourseStatus;
+  instructorId?: number;
 }
 
 export interface Student {
