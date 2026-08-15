@@ -22,7 +22,7 @@ function StudentCard({ student, onSelect }: StudentCardProps) {
       <h2 className="text-lg font-bold text-gray-900 dark:text-white">{student.name}</h2>
       <p className="text-gray-600 dark:text-gray-300">{student.email}</p>
       <p className="text-sm text-gray-500 dark:text-gray-400">Role: {student.role}</p>
-      <p className="text-sm text-gray-500 dark:text-gray-400">Enrolled courses: {student.enrolledCourseIds.length}</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400">Enrolled courses: {student.enrolledCourseIds?.length ?? 0}</p>
       <button type="button" onClick={handleSelect}
         className="mt-3 rounded bg-blue-600 px-3 py-1.5 text-sm
           font-semibold text-white transition hover:bg-blue-700">

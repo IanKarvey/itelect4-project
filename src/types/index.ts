@@ -52,3 +52,12 @@ export type StudentUpdate = Partial<Student>;
 export type StudentPreview = Pick<Student, "id" | "name" | "role">;
 export type PublicStudent = Omit<Student, "email">;
 export type CourseStatusCount = Record<CourseStatus, number>;
+
+export interface Submission {
+  id: number;
+  studentId: number;
+  courseCode: string;
+  repoUrl: string;
+  submittedAt: Date;
+  score?: number;
+}
