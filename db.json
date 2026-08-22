@@ -1,0 +1,11 @@
+{
+  "courses": [
+    { "id": 101, "code": "ITELECT4", "title": "IT Elective 4", "units": 3, "credits": 3, "semester": "1st Semester 2026-2027", "status": "open" },
+    { "id": 102, "code": "ITELECT3", "title": "IT Elective 3", "units": 3, "credits": 3, "semester": "2nd Semester 2025-2026", "status": "open" },
+    { "id": 103, "code": "CSSWENG", "title": "Software Engineering", "units": 3, "credits": 3, "semester": "1st Semester 2026-2027", "status": "open" }
+  ],
+  "submissions": [
+    { "id": "1", "studentId": 1, "courseCode": "ITELECT4", "repoUrl": "https://github.com/juan/itelect4-project", "submittedAt": "2026-08-01T09:00:00.000Z", "score": 95 },
+    { "id": "2", "studentId": 1, "courseCode": "ITELECT3", "repoUrl": "https://github.com/juan/itelect3-final", "submittedAt": "2026-07-18T09:00:00.000Z" }
+  ]
+}
