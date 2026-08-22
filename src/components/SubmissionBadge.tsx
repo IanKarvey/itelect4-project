@@ -1,7 +1,7 @@
-import type { Submission } from "../types/index";
+import type { ApiSubmission } from "../types/index";
 
 interface Props {
-  submission: Submission;
+  submission: ApiSubmission;
   children?: React.ReactNode;
 }
 

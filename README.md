@@ -1,6 +1,6 @@
-# ITELECT4 Course Enrollment Tracker
+# ITELECT4 Submission Tracker
 
-This project is about a simple course enrollment system. It has students, instructors, and courses. A student can enroll in courses, and each course has an instructor and a status like planned, open, in progress, or completed.
+This project tracks student submissions for courses. It has students, courses, and submissions -- a student submits a repo URL for a course, which can later be scored.
 
 ## Types Made
 
