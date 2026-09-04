@@ -5,6 +5,7 @@ import CourseCard from "../components/CourseCard";
 import usePrevious from "../hooks/usePrevious";
 import useUiStore from "../store/uiStore";
 import { fetchCourses } from "../api/client";
+import { Input } from "@/components/ui/input";
 
 function CoursesPage() {
   const { data, isPending, isError, error } = useQuery<Course[]>({
@@ -36,11 +37,10 @@ function CoursesPage() {
   return (
     <div>
       <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Courses</h2>
-      <input
+      <Input
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search courses..."
-        className="w-full rounded border border-gray-300 p-2"
       />
       {previousSearch !== undefined && previousSearch !== searchTerm && (
         <p className="mt-1 text-sm text-gray-500">Previous search: "{previousSearch}"</p>
