@@ -1,73 +1,52 @@
-export type UserRole = "student" | "instructor" | "admin";
+import type { Types } from "mongoose";
+
+// FROM SESSION 1: the three interfaces, copied from itelect4-project's
+// src/types/index.ts. The schemas in src/models/ are these interfaces
+// written a second time in a form the database can enforce.
 
 export interface User {
-  id: number;
-  name: string;
-  email: string;
-  role: UserRole;
+  id:       number;
+  name:     string;
+  email:    string;
+  role:     "student" | "admin" | "instructor";
   isActive: boolean;
 }
 
-export enum CourseStatus {
-  Planned = "planned",
-  Open = "open",
-  InProgress = "in-progress",
-  Completed = "completed",
-}
-
-export interface Instructor {
-  id: number;
-  name: string;
-  email: string;
-  department: string;
-  role: UserRole;
-}
-
 export interface Course {
-  id: number;
-  code: string;
-  title: string;
-  units?: number;
-  credits: number;
-  semester?: string;
-  status: CourseStatus;
-  instructorId?: number;
+  code:     string;
+  title:    string;
+  units:    number;
+  semester: string;
 }
-
-export interface Student {
-  id: number;
-  name: string;
-  email: string;
-  enrolledCourseIds: number[];
-  role: UserRole;
-}
-
-export interface ApiResponse<T> {
-  success: boolean;
-  data: T;
-  message?: string;
-}
-
-export type StudentUpdate = Partial<Student>;
-export type StudentPreview = Pick<Student, "id" | "name" | "role">;
-export type PublicStudent = Omit<Student, "email">;
-export type CourseStatusCount = Record<CourseStatus, number>;
 
 export interface Submission {
-  id: number;
-  studentId: number;
-  courseCode: string;
-  repoUrl: string;
+  id:          number;
+  studentId:   number;
+  courseCode:  string;
+  repoUrl:     string;
   submittedAt: Date;
-  score?: number;
+  score?:      number;
 }
 
-// json-server ids are strings, and JSON has no Date -- both types below
-// are DERIVED from Submission, so Submission stays the single source of truth.
-export type ApiSubmission = Omit<Submission, "id" | "submittedAt"> & {
-  id: string;
-  submittedAt: string;
+// ---------------------------------------------------------------------
+// What the database actually stores.
+//
+// Session 1 wrote `id: number` because a mock array numbered its own rows.
+// MongoDB assigns a 24-character hex id, so stored types are DERIVED with
+// Omit (Session 2 utility type). The interface stays the single source of
+// truth: add a field there and these inherit it.
+// ---------------------------------------------------------------------
+
+export type UserDoc = Omit<User, "id"> & {
+  password: string;
 };
 
-// What we SEND when creating one. No id yet -- the server makes it.
-export type NewSubmission = Omit<ApiSubmission, "id">;
+// studentId is an ObjectId, NOT a string. Typing it as string makes the
+// schema report errors on every field at once.
+export type SubmissionDoc = Omit<Submission, "id" | "studentId"> & {
+  studentId: Types.ObjectId;
+};
+
+// The body a client sends to create one. No id (MongoDB makes it) and no
+// studentId (the server reads it from the token).
+export type NewSubmissionBody = Pick<Submission, "courseCode" | "repoUrl">;
