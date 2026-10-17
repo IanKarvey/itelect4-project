@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { fetchSubmissions, createSubmission, fetchCourses } from "../api/client";
-import { student } from "../data/mockData";
 // The useState import is GONE -- useForm holds the values now
 
 function SubmissionsPage() {
@@ -47,13 +46,10 @@ function SubmissionsPage() {
   });
 
   // handleSubmit only calls this after the schema passes.
+  // The form has exactly the two fields the API takes. The owner comes
+  // off the token and the date from the schema default.
   const onSubmit = (values: SubmissionFormValues): void => {
-    addSubmission.mutate({
-      studentId: student.id,
-      courseCode: values.courseCode,
-      repoUrl: values.repoUrl,
-      submittedAt: new Date().toISOString(),
-    });
+    addSubmission.mutate(values);
   };
 
   if (isPending) {

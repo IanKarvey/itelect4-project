@@ -62,12 +62,31 @@ export interface Submission {
   score?: number;
 }
 
-// json-server ids are strings, and JSON has no Date -- both types below
-// are DERIVED from Submission, so Submission stays the single source of truth.
-export type ApiSubmission = Omit<Submission, "id" | "submittedAt"> & {
-  id: string;
-  submittedAt: string;
+// Ids are strings (MongoDB sends 24 hex characters) and JSON has no Date.
+// These types are DERIVED from Submission, so Submission stays the single
+// source of truth.
+export type ApiSubmission = Omit<
+  Submission,
+  "id" | "studentId" | "submittedAt"
+> & {
+  id: string;          // from MongoDB's _id
+  studentId: string;   // the owner's _id
+  submittedAt: string; // an ISO string, never a Date object
 };
 
-// What we SEND when creating one. No id yet -- the server makes it.
-export type NewSubmission = Omit<ApiSubmission, "id">;
+// What we SEND when creating one. The server fills in studentId from the
+// token and submittedAt from the schema default, so these two fields are
+// the whole request body (same Pick as the backend's NewSubmissionBody).
+export type NewSubmission = Pick<Submission, "courseCode" | "repoUrl">;
+
+// What /api/auth/register sends back, and what sits inside the login reply.
+export type ApiUser = Omit<User, "id"> & {
+  id: string;
+};
+
+// What /api/auth/login sends back. The token goes in the Authorization
+// header on every request after this one.
+export interface AuthReply {
+  token: string;
+  user: ApiUser;
+}
