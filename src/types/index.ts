@@ -90,3 +90,13 @@ export interface AuthReply {
   token: string;
   user: ApiUser;
 }
+
+// What POST /api/ai sends back. The backend's Review type comes from a
+// Zod schema in src/schemas/review.ts, and this has to say the same
+// thing. Nothing checks that they agree -- you do.
+export interface AiReview {
+  summary: string;
+  strengths: string[];
+  improvements: string[];
+  readiness: "ready" | "almost" | "not-yet";
+}
